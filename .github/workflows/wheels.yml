@@ -17,6 +17,7 @@ jobs:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
       CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
+      OS_PYTHON_VERSION: 3.8
 
     steps:
       - uses: actions/checkout@v2
