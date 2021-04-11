@@ -28,6 +28,8 @@ jobs:
           pwd
           chmod +x install.sh
           ./install.sh
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --upgrade setuptools
           python3 -m pip install twine build
           python3 -m pip install cibuildwheel==1.10.0
 
@@ -38,7 +40,6 @@ jobs:
           
       - name: Build bdist_wheel
         run: |
-          ./open_spiel/scripts/build_and_run_tests.sh
           python3 -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
