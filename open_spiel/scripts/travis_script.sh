@@ -36,7 +36,7 @@ virtualenv -p ${PYBIN} ./venv
 source ./venv/bin/activate
 
 ${PYBIN} --version
-${PYBIN} -m pip install --upgrade -r requirements.txt -q
+pip3 install --upgrade -r requirements.txt -q
 
 ./open_spiel/scripts/build_and_run_tests.sh
 
