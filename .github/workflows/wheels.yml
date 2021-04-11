@@ -17,6 +17,7 @@ jobs:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
       CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
+      OS_PYTHON_VERSION: 3.9
 
     steps:
       - uses: actions/checkout@v2
@@ -25,10 +26,12 @@ jobs:
       - name: Install
         run: |
           pwd
+          python3 --version
           chmod +x install.sh
           ./install.sh
           python3 -m pip install --upgrade pip
           python3 -m pip install --upgrade setuptools
+          pip3 install --upgrade -r requirements.txt -q
           python3 -m pip install twine build
           python3 -m pip install cibuildwheel==1.10.0
 
