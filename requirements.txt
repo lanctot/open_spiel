@@ -23,7 +23,8 @@ cvxopt == 1.2.5
 networkx == 2.4
 mock == 4.0.2
 # matplotlib == 3.2.2
-matplotlib == 3.4.1
+# matplotlib == 3.4.1
+matplotlib == 3.3.4
 nashpy == 0.0.19
 # scipy == 1.4.1
 scipy == 1.6.2
