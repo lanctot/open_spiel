@@ -22,15 +22,15 @@ PYBIN=`which $PYBIN`
 
 if [ ! $TRAVIS_USE_NOX -eq 0 ]; then
   # Build and run tests using nox
-  sudo -H ${PYBIN} -m pip install nox
+  ${PYBIN} -m pip install nox
   PWD=`pwd`  # normally defined, but just in case!
   PYTHONPATH="$PYTHONPATH:$PWD:$PWD/build:$PWD/build/python" nox -s tests
   exit 0
 fi
 
-sudo -H ${PYBIN} -m pip install --upgrade pip
-sudo -H ${PYBIN} -m pip install --upgrade setuptools
-sudo -H ${PYBIN} -m pip install --force-reinstall virtualenv==20.0.23
+${PYBIN} -m pip install --upgrade pip
+${PYBIN} -m pip install --upgrade setuptools
+${PYBIN} -m pip install --force-reinstall virtualenv==20.0.23
 
 virtualenv -p ${PYBIN} ./venv
 source ./venv/bin/activate
