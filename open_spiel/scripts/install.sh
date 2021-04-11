@@ -238,9 +238,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then  # Mac OSX
   # On Github Actions, macOS 10.15 comes with Python 3.9.
   # Only 3.8 is supported by Tensorflow 2.2, and only 3.7 currently runs on CI.
   if [[ "$CI" ]]; then
-    brew install "python@${OS_PYTHON_VERSION}"
-    brew unlink python@3.9
-    brew link --force --overwrite "python@${OS_PYTHON_VERSION}"
+    if [[ "${OS_PYTHON_VERSION}" != "3.9" ]]; then
+      brew install "python@${OS_PYTHON_VERSION}"
+      brew unlink python@3.9
+      brew link --force --overwrite "python@${OS_PYTHON_VERSION}"
+    fi
   fi
   `python3 -c "import tkinter" > /dev/null 2>&1` || brew install tcl-tk || echo "** Warning: failed 'brew install tcl-tk' -- continuing"
   python3 --version

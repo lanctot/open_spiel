@@ -17,23 +17,26 @@
 set -e
 set -x
 
+PYBIN=${PYBIN:-"python3"}
+PYBIN=`which $PYBIN`
+
 if [ ! $TRAVIS_USE_NOX -eq 0 ]; then
   # Build and run tests using nox
-  sudo -H pip3 install nox
+  sudo -H ${PYBIN} -m pip install nox
   PWD=`pwd`  # normally defined, but just in case!
   PYTHONPATH="$PYTHONPATH:$PWD:$PWD/build:$PWD/build/python" nox -s tests
   exit 0
 fi
 
-sudo -H pip3 install --upgrade pip
-sudo -H pip3 install --upgrade setuptools
-sudo -H pip3 install --force-reinstall virtualenv==20.0.23
+sudo -H ${PYBIN} -m pip install --upgrade pip
+sudo -H ${PYBIN} -m pip install --upgrade setuptools
+sudo -H ${PYBIN} -m pip install --force-reinstall virtualenv==20.0.23
 
-virtualenv -p python3 ./venv
+virtualenv -p ${PYBIN} ./venv
 source ./venv/bin/activate
 
-python3 --version
-pip3 install --upgrade -r requirements.txt -q
+${PYBIN} --version
+${PYBIN} -m pip install --upgrade -r requirements.txt -q
 
 ./open_spiel/scripts/build_and_run_tests.sh
 
