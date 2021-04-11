@@ -27,7 +27,8 @@ mock == 4.0.2
 matplotlib == 3.3.4
 nashpy == 0.0.19
 # scipy == 1.4.1
-scipy == 1.6.2
+# scipy == 1.6.2
+scipy == 1.5.4
 attrs == 19.3.0
 jax == 0.2.7
 jaxlib == 0.1.57
