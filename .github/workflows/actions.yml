@@ -43,6 +43,15 @@ jobs:
           BUILD_SHARED_LIB: "OFF"
           BUILD_WITH_ORTOOLS: "OFF"
           BUILD_WITH_ORTOOLS_DOWNLOAD_URL: ""
+         ## Python 3.9
+        - os: ubuntu-20.04
+          DEFAULT_OPTIONAL_DEPENDENCY: "ON"
+          TRAVIS_USE_NOX: 0
+          BUILD_SHARED_LIB: "ON"
+          BUILD_WITH_ORTOOLS: "ON"
+          BUILD_WITH_ORTOOLS_DOWNLOAD_URL: "https://github.com/google/or-tools/releases/download/v8.0/or-tools_ubuntu-20.04_v8.0.8283.tar.gz"
+          EXT_DEPS: "python3.9 python3.9-dev"
+          PYBIN: "python3.9"
          ## Tests using PIP
          # Build and run tests without all optional dependencies (default behavior) and
          # use nox

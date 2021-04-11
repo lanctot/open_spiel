@@ -177,7 +177,7 @@ set(PYTHON_TESTS ${PYTHON_TESTS}
 # Create a python test.
 foreach(py_test_file IN LISTS PYTHON_TESTS)
   get_filename_component(py_test ${py_test_file} NAME_WE)
-  add_test(NAME python_${py_test} COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/${py_test_file})
+  add_test(NAME python_${py_test} COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${py_test_file})
 
   # We need two elements in the python path: CURRENT_BINARY_DIR to pick up
   # pyspiel.so, and CURRENT_SOURCE_DIR for the Python source files. We use
@@ -189,16 +189,16 @@ foreach(py_test_file IN LISTS PYTHON_TESTS)
       TEST_SRCDIR=${CMAKE_CURRENT_SOURCE_DIR}/../..)
 endforeach(py_test_file)
 
+# Test disabled until dm-tree supports Python 3.9 and we re-add dm-haiku dep
 # Additional tests (running examples as tests)
 # We don't generate these automatically because we may want custom parameters.
-
-add_test(NAME python_examples_bridge_supervised_learning
-         COMMAND python3
-         ${CMAKE_CURRENT_SOURCE_DIR}/examples/bridge_supervised_learning.py
-         --iterations 10
-         --eval_every 5
-         --data_path ${CMAKE_CURRENT_SOURCE_DIR}/examples/data/bridge)
-set_property(TEST python_examples_bridge_supervised_learning
-    PROPERTY ENVIRONMENT
-    PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_SOURCE_DIR}/../..;
-    TEST_SRCDIR=${CMAKE_CURRENT_SOURCE_DIR}/../..)
+#add_test(NAME python_examples_bridge_supervised_learning
+#         COMMAND python3
+#         ${CMAKE_CURRENT_SOURCE_DIR}/examples/bridge_supervised_learning.py
+#         --iterations 10
+#         --eval_every 5
+#         --data_path ${CMAKE_CURRENT_SOURCE_DIR}/examples/data/bridge)
+#set_property(TEST python_examples_bridge_supervised_learning
+#    PROPERTY ENVIRONMENT
+#    PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_SOURCE_DIR}/../..;
+#    TEST_SRCDIR=${CMAKE_CURRENT_SOURCE_DIR}/../..)

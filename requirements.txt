@@ -13,24 +13,35 @@
 # See https://www.python.org/dev/peps/pep-0440/#compatible-release
 # We do pick the latest version for Tensorflow and Jax on purpose.
 pip >= 20.0.2
-absl-py == 0.10.0
+# absl-py == 0.10.0
+absl-py == 0.12.0
+# tensorflow == 2.4.1
 tensorflow == 2.5.0rc0
 IPython == 5.8.0
 tensorflow-probability < 0.8.0, >= 0.7.0
 cvxopt == 1.2.5
 networkx == 2.4
 mock == 4.0.2
-optax == 0.0.2
-chex == 0.0.3
-matplotlib == 3.2.2
+# matplotlib == 3.2.2
+matplotlib == 3.4.1
 nashpy == 0.0.19
-scipy == 1.4.1
+# scipy == 1.4.1
+scipy == 1.6.2
 attrs == 19.3.0
 jax == 0.2.7
 jaxlib == 0.1.57
-dm-haiku == 0.0.3
+# Disabling dm-haiku and jax dependencies until dm-tree supports python 3.9
+# dm-haiku == 0.0.3
+# optax == 0.0.2
+# chex == 0.0.3
+# chex == 0.0.6
 dataclasses == 0.7; python_version < "3.7"
 hypothesis==5.38.0
-torch==1.7.0
+# torch==1.7.0
+torch==1.8.1
 six==1.15.0
 testresources==2.0.1
+#
+# numpy >= 1.20.2
+Pillow == 8.2.0
+kiwisolver == 1.3.1
