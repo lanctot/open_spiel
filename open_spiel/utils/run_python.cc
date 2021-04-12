@@ -20,10 +20,16 @@
 namespace open_spiel {
 
 bool RunPython(const std::string& module,
-               const std::vector<std::string>& args) {
+               const std::vector<std::string>& args,
+               const std::string& python_command) {
   // If this fails, make sure your PYTHONPATH environment variable is correct.
   return 0 == std::system(absl::StrCat(
-      "python3 -m ", module, " ", absl::StrJoin(args, " ")).c_str());
+      python_command, " -m ", module, " ", absl::StrJoin(args, " ")).c_str());
+}
+
+bool RunPython(const std::string& module,
+               const std::vector<std::string>& args) {
+  return RunPython(module, args, kDefaultPythonCommand);
 }
 
 }  // namespace open_spiel

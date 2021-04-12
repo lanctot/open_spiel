@@ -193,7 +193,7 @@ endforeach(py_test_file)
 # Additional tests (running examples as tests)
 # We don't generate these automatically because we may want custom parameters.
 #add_test(NAME python_examples_bridge_supervised_learning
-#         COMMAND python3
+#         COMMAND ${Python3_EXECUTABLE} 
 #         ${CMAKE_CURRENT_SOURCE_DIR}/examples/bridge_supervised_learning.py
 #         --iterations 10
 #         --eval_every 5
