@@ -21,7 +21,7 @@ jobs:
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
       CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux2014
       OS_PYTHON_VERSION: 3.9
-      CIBW_ENVIRONMENT: "CXX=$(which g++)"
+      CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
 
     steps:
       - uses: actions/checkout@v2
@@ -32,23 +32,23 @@ jobs:
           pwd
           which g++
           g++ --version
-          python3 --version
+          python --version
           chmod +x install.sh
           ./install.sh
-          python3 -m pip install --upgrade pip
-          python3 -m pip install --upgrade setuptools
-          pip3 install --upgrade -r requirements.txt -q
-          python3 -m pip install twine build
-          python3 -m pip install cibuildwheel==1.10.0
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          pip install --upgrade -r requirements.txt -q
+          python -m pip install twine build
+          python -m pip install cibuildwheel==1.10.0
 
       - name: Build sdist
         run: |
-          python3 -m build -s
+          python -m build -s
           twine check dist/*.tar.gz
           
       - name: Build bdist_wheel
         run: |
-          python3 -m cibuildwheel --output-dir wheelhouse
+          python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
         with:
