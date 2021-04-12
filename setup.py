@@ -87,6 +87,8 @@ class BuildExt(build_ext):
     # don't use optional dependencies.
     # env["BUILD_WITH_ACPC"] = "ON"
     # env["BUILD_WITH_HANABI"] = "ON"
+    print("Buidling extension")
+    print(f"Python executable is: {sys.executable}")
     cmake_args = [
         f"-DPython3_EXECUTABLE={sys.executable}",
         f"-DCMAKE_CXX_COMPILER={cxx}",
