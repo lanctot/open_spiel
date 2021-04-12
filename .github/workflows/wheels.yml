@@ -12,7 +12,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, macOS-10.15]
+        include:
+        - os: ubuntu-20.04
+          CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
+        - os: macOS-10.15
+          CIBW_ENVIRONMENT: "BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
     env:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
@@ -21,7 +25,6 @@ jobs:
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
       CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux2014
       OS_PYTHON_VERSION: 3.9
-      CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
 
     steps:
       - uses: actions/checkout@v2
