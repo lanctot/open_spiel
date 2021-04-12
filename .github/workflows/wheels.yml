@@ -21,7 +21,7 @@ jobs:
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
       CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux2014
       OS_PYTHON_VERSION: 3.9
-      CIBW_ENVIRONMENT: "CXX='/usr/bin/g++'"
+      CIBW_ENVIRONMENT: "CXX=$(which g++)"
 
     steps:
       - uses: actions/checkout@v2
@@ -30,6 +30,7 @@ jobs:
       - name: Install
         run: |
           pwd
+          which g++
           g++ --version
           python3 --version
           chmod +x install.sh
