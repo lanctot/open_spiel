@@ -1,4 +1,4 @@
-find_package(Python3 COMPONENTS Interpreter Development)
+find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
 message(NOTICE "Python executable: ${Python3_EXECUTABLE}")
 message(NOTICE "Python include dirs: ${Python3_INCLUDE_DIRS}")
 include_directories(SYSTEM ${Python3_INCLUDE_DIRS})
