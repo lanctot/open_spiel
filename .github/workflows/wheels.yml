@@ -17,10 +17,11 @@ jobs:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
       CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
-      CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_24
-      CIBW_MANYLINUX_I686_IMAGE: manylinux_2_24
-      CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux_2_24
+      CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+      CIBW_MANYLINUX_I686_IMAGE: manylinux2014
+      CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux2014
       OS_PYTHON_VERSION: 3.9
+      CXX: /usr/bin/g++
 
     steps:
       - uses: actions/checkout@v2
@@ -29,6 +30,7 @@ jobs:
       - name: Install
         run: |
           pwd
+          g++ --version
           python3 --version
           chmod +x install.sh
           ./install.sh
