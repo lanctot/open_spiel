@@ -30,6 +30,7 @@ jobs:
       - name: Install
         run: |
           pwd
+          which python
           which g++
           g++ --version
           python --version
@@ -37,7 +38,7 @@ jobs:
           ./install.sh
           python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools
-          pip install --upgrade -r requirements.txt -q
+          python -m pip install --upgrade -r requirements.txt -q
           python -m pip install twine build
           python -m pip install cibuildwheel==1.10.0
 
