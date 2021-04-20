@@ -20,11 +20,13 @@ jobs:
     env:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
+      # While testing, try specific versions
+      CIBW_BUILD: cp37-*
       CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
-      CIBW_MANYLINUX_PYPY_X86_64_IMAGE: manylinux2014
-      OS_PYTHON_VERSION: 3.9
+      CIBW_SKIP: cp27-* pp-*
+      OS_PYTHON_VERSION: 3.6
       CIBW_BEFORE_BUILD: python -m pip install --upgrade cmake
       CIBW_ENVIRONMENT: ${{ matrix.CIBW_ENVIRONMENT }}
 
