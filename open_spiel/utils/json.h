@@ -24,6 +24,7 @@
 
 #include "open_spiel/abseil-cpp/absl/strings/string_view.h"
 #include "open_spiel/abseil-cpp/absl/types/optional.h"
+#include "open_spiel/spiel_utils.h"
 
 namespace open_spiel::json {
 
@@ -55,17 +56,96 @@ class Value : public std::variant<Null, bool, int64_t, double, std::string,
   bool IsString() const { return std::holds_alternative<std::string>(*this); }
   bool IsArray() const { return std::holds_alternative<Array>(*this); }
   bool IsObject() const { return std::holds_alternative<Object>(*this); }
-  bool GetBool() const { return std::get<bool>(*this); }
-  int64_t GetInt() const { return std::get<int64_t>(*this); }
-  int64_t& GetInt() { return std::get<int64_t>(*this); }
-  double GetDouble() const { return std::get<double>(*this); }
-  double& GetDouble() { return std::get<double>(*this); }
-  const std::string& GetString() const { return std::get<std::string>(*this); }
-  std::string& GetString() { return std::get<std::string>(*this); }
-  const Array& GetArray() const { return std::get<Array>(*this); }
-  Array& GetArray() { return std::get<Array>(*this); }
-  const Object& GetObject() const { return std::get<Object>(*this); }
-  Object& GetObject() { return std::get<Object>(*this); }
+
+  // Do not use std::get here, it does not compile on older MacOS. See
+  // https://stackoverflow.com/questions/52521388/stdvariantget-does-not-compile-with-apple-llvm-10-0
+  bool GetBool() const {
+    if (auto* val = std::get_if<bool>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain a bool.");
+    }
+  }
+
+  int64_t GetInt() const {
+    if (auto* val = std::get_if<int64_t>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an int64_t.");
+    }
+  }
+
+  int64_t& GetInt() {
+    if (auto* val = std::get_if<int64_t>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an int64_t.");
+    }
+  }
+
+  double GetDouble() const {
+    if (auto* val = std::get_if<double>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain a double.");
+    }
+  }
+
+  double& GetDouble() {
+    if (auto* val = std::get_if<double>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain a double.");
+    }
+  }
+
+  const std::string& GetString() const {
+    if (auto* val = std::get_if<std::string>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain a double.");
+    }
+  }
+
+  std::string& GetString() {
+    if (auto* val = std::get_if<std::string>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain a string.");
+    }
+  }
+
+  const Array& GetArray() const {
+    if (auto* val = std::get_if<Array>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an array.");
+    }
+  }
+
+  Array& GetArray() {
+    if (auto* val = std::get_if<Array>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an array.");
+    }
+  }
+
+  const Object& GetObject() const {
+    if (auto* val = std::get_if<Object>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an array.");
+    }
+  }
+
+  Object& GetObject() {
+    if (auto* val = std::get_if<Object>(this)) {
+      return *val;
+    } else {
+      SpielFatalError("Value does not contain an array.");
+    }
+  }
 
   bool operator==(const Null& o) const { return IsNull(); }
   bool operator==(const bool& o) const { return IsBool() && GetBool() == o; }
