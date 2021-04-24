@@ -14,9 +14,9 @@ jobs:
       matrix:
         include:
         - os: ubuntu-20.04
-          CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
+          CIBW_ENVIRONMENT: "BUILDING_WHEEL=ON CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
         - os: macOS-10.15
-          CIBW_ENVIRONMENT: "BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
+          CIBW_ENVIRONMENT: "BUILDING_WHEEL=ON BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
     env:
       BUILDING_WHEEL: ON
       BUILD_WITH_ACPC: ON

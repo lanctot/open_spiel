@@ -1,4 +1,4 @@
-if (${BUILDING_WHEEL} STREQUAL ON OR ${CIBUILDWHEEL} EQUAL 1)
+if (${BUILDING_WHEEL})
   # When building a wheel, need to use this. See:
   # https://github.com/joerick/cibuildwheel/issues/639#issuecomment-817872369
   message(NOTICE "Building Wheel Detected. Finding Python Interpeter Development.Module")
