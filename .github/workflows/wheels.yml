@@ -27,7 +27,6 @@ jobs:
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
       CIBW_SKIP: cp27-* pp*
-      OS_PYTHON_VERSION: ${{ matrix.python-version }}
       CIBW_BEFORE_BUILD: python -m pip install --upgrade cmake
       CIBW_ENVIRONMENT: ${{ matrix.CIBW_ENVIRONMENT }}
 
