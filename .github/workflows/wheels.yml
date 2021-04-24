@@ -13,21 +13,20 @@ jobs:
     strategy:
       matrix:
         include:
-        #- os: ubuntu-20.04
-        #  CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
+        - os: ubuntu-20.04
+          CIBW_ENVIRONMENT: "CXX=$(which g++) BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
         - os: macOS-10.15
           CIBW_ENVIRONMENT: "BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
     env:
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
       # While testing, try specific versions
-      CIBW_BUILD: cp39-*
+      CIBW_BUILD: cp36-* cp37-* cp38-* cp39-*
       CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
       CIBW_MANYLINUX_I686_IMAGE: manylinux2014
       CIBW_SKIP: cp27-* pp*
-      #OS_PYTHON_VERSION: 3.6
-      OS_PYTHON_VERSION: 3.9
+      OS_PYTHON_VERSION: ${{ matrix.python-version }}
       CIBW_BEFORE_BUILD: python -m pip install --upgrade cmake
       CIBW_ENVIRONMENT: ${{ matrix.CIBW_ENVIRONMENT }}
 
