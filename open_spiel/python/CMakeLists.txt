@@ -1,5 +1,11 @@
-find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
-# find_package(Python3 COMPONENTS Interpreter Development)
+if (${BUILDING_WHEEL} OR ${CIBUILDWHEEL} EQUAL 1)
+  # When building a wheel, need to use this. See:
+  # https://github.com/joerick/cibuildwheel/issues/639#issuecomment-817872369
+  find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
+else()
+  find_package(Python3 COMPONENTS Interpreter Development)
+endif()
+
 message(NOTICE "Python executable: ${Python3_EXECUTABLE}")
 message(NOTICE "Python include dirs: ${Python3_INCLUDE_DIRS}")
 include_directories(SYSTEM ${Python3_INCLUDE_DIRS})

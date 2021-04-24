@@ -18,6 +18,7 @@ jobs:
         - os: macOS-10.15
           CIBW_ENVIRONMENT: "BUILD_WITH_ACPC='ON' BUILD_WITH_HANABI='ON'"
     env:
+      BUILDING_WHEEL: ON
       BUILD_WITH_ACPC: ON
       BUILD_WITH_HANABI: ON
       # While testing, try specific versions
