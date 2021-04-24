@@ -379,6 +379,10 @@ PYBIND11_MODULE(pyspiel, m) {
             return std::move(game_and_state.second);
           }));
 
+  // Needed for default param of Game::MakeObserver, otherwise we get a runtime
+  // error at load time on MacOS.
+  py::class_<absl::nullopt_t> null_opt(m, "absl_nullopt_t");
+
   py::class_<Game, PyGame, std::shared_ptr<Game>> game(m, "Game");
   game.def(py::init<py::object, GameType, GameInfo, GameParameters>())
       .def("num_distinct_actions", &Game::NumDistinctActions)
