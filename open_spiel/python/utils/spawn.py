@@ -34,6 +34,7 @@ import queue
 
 Empty = queue.Empty
 
+multiprocessing.set_start_method("fork")
 
 # For compatibility so that it works inside Google.
 @contextlib.contextmanager
