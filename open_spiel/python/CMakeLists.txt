@@ -3,9 +3,14 @@ if (BUILDING_WHEEL)
   # https://github.com/joerick/cibuildwheel/issues/639#issuecomment-817872369
   message(NOTICE "Building Wheel Detected. Finding Python Interpeter Development.Module")
   find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
+  unset(OPEN_SPIEL_PYTHONPATH)
+  if(DEFINED ENV{PYTHONPATH})
+    set (OPEN_SPIEL_PYTHONPATH $ENV{PYTHONPATH})
+  endif()
 else()
   message(NOTICE "Not building wheel. Finding Python normally...")
   find_package(Python3 COMPONENTS Interpreter Development)
+  set(OPEN_SPIEL_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_SOURCE_DIR}/../..;)
 endif()
 
 message(NOTICE "Python executable: ${Python3_EXECUTABLE}")
@@ -183,21 +188,31 @@ set(PYTHON_TESTS ${PYTHON_TESTS}
   pytorch/policy_gradient_pytorch_test.py
 )
 
+# Tests that are excluded when running via the installed wheel.
+# Some bundle data not shipped with the wheel (e.g. playthroughs)
+set(WHEEL_EXCLUDED_PYTHON_TESTS
+  python/algorithms/response_graph_ucb_test.py
+  python/games/tic_tac_to_test.py
+  ../integration_tests/playthrough_test.py)
+
 
 # Create a python test.
 foreach(py_test_file IN LISTS PYTHON_TESTS)
-  get_filename_component(py_test ${py_test_file} NAME_WE)
-  add_test(NAME python_${py_test} COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${py_test_file})
+  if (NOT (BUILDING_WHEEL AND ${py_test_file} IN_LIST WHEEL_EXCLUDED_PYTHON_TESTS))
+    get_filename_component(py_test ${py_test_file} NAME_WE)
+    add_test(NAME python_${py_test} COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${py_test_file})
 
-  # We need two elements in the python path: CURRENT_BINARY_DIR to pick up
-  # pyspiel.so, and CURRENT_SOURCE_DIR for the Python source files. We use
-  # CURRENT_SOURCE_DIR/../.. so that the Python module imports are of the form:
-  #  from open_spiel.python import rl_environment.
-  set_property(TEST python_${py_test}
-      PROPERTY ENVIRONMENT
-      PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_SOURCE_DIR}/../..;
-      TEST_SRCDIR=${CMAKE_CURRENT_SOURCE_DIR}/../..)
+    # We need two elements in the python path: CURRENT_BINARY_DIR to pick up
+    # pyspiel.so, and CURRENT_SOURCE_DIR for the Python source files. We use
+    # CURRENT_SOURCE_DIR/../.. so that the Python module imports are of the form:
+    #  from open_spiel.python import rl_environment.
+    set_property(TEST python_${py_test}
+        PROPERTY ENVIRONMENT
+        PYTHONPATH=${OPEN_SPIEL_PYTHONPATH}
+        TEST_SRCDIR=${CMAKE_CURRENT_SOURCE_DIR}/../..)
+  endif()
 endforeach(py_test_file)
+
 
 # Test disabled until dm-tree supports Python 3.9 and we re-add dm-haiku dep
 # Additional tests (running examples as tests)
