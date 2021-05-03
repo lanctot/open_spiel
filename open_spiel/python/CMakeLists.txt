@@ -3,6 +3,7 @@ if (BUILDING_WHEEL)
   # https://github.com/joerick/cibuildwheel/issues/639#issuecomment-817872369
   message(NOTICE "Building Wheel Detected. Finding Python Interpeter Development.Module")
   find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
+  # find_package(Python3 COMPONENTS Interpreter Development)
   unset(OPEN_SPIEL_PYTHONPATH)
   if(DEFINED ENV{PYTHONPATH})
     set (OPEN_SPIEL_PYTHONPATH $ENV{PYTHONPATH})
@@ -191,8 +192,8 @@ set(PYTHON_TESTS ${PYTHON_TESTS}
 # Tests that are excluded when running via the installed wheel.
 # Some bundle data not shipped with the wheel (e.g. playthroughs)
 set(WHEEL_EXCLUDED_PYTHON_TESTS
-  python/algorithms/response_graph_ucb_test.py
-  python/games/tic_tac_to_test.py
+  algorithms/response_graph_ucb_test.py
+  games/tic_tac_toe_test.py
   ../integration_tests/playthrough_test.py)
 
 

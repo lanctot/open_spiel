@@ -16,7 +16,7 @@
 set -e
 set -x
 
-OS=`uname -a | '{print $1}'`
+OS=`uname -a | awk '{print $1}'`
 if [[ "$OS" = "Linux" && "$OS_PYTHON_VERSION" = "3.9" ]]; then
   echo "Linux detected and Python 3.9 requested. Installing Python 3.9 and setting as default."
   sudo apt-get install python3.9 python3.9-dev
@@ -34,9 +34,11 @@ else
 fi
 
 export BUILDING_WHEEL="ON"
+export BUILD_WITH_HANABI="ON"
+export BUILD_WITH_ACPC="ON"
 
 rm -rf build && mkdir build && cd build
-cmake -DPython3_EXECUTABLE=${PYBIN} -DCMAKE_CXX_COMPILER=${CXX} ../open_spiel
+cmake -DPython3_EXECUTABLE=${PYBIN} ../open_spiel
 
 NPROC="nproc"
 if [[ "$OS" == "darwin"* ]]; then
