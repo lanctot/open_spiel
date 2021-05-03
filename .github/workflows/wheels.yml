@@ -37,6 +37,7 @@ jobs:
       - name: Install
         run: |
           pwd
+          uname -a
           which python
           which g++
           g++ --version
@@ -57,7 +58,7 @@ jobs:
       - name: Build bdist_wheel
         run: python -m cibuildwheel --output-dir wheelhouse
 
-      - name: Testing bdist_wheel
+      - name: Install and test bdist_wheel
         run: ./open_spiel/scripts/test_wheel.sh
 
       - uses: actions/upload-artifact@v2

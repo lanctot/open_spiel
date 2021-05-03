@@ -16,6 +16,8 @@
 set -e
 set -x
 
+uname -a
+
 OS=`uname -a | awk '{print $1}'`
 if [[ "$OS" = "Linux" && "$OS_PYTHON_VERSION" = "3.9" ]]; then
   echo "Linux detected and Python 3.9 requested. Installing Python 3.9 and setting as default."
