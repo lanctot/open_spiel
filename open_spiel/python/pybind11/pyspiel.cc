@@ -411,11 +411,11 @@ PYBIND11_MODULE(pyspiel, m) {
       .def("max_history_length", &Game::MaxHistoryLength)
       .def("make_observer",
            [](const Game& game, IIGObservationType iig_obs_type, const GameParameters& params) {
-              return game.MakeObserverForwarderWithObsType(iig_obs_type, params);
+              return game.MakeObserver(iig_obs_type, params);
            })
       .def("make_observer",
            [](const Game& game, const GameParameters& params) {
-              return game.MakeObserverForwarderWithoutObsType(params);
+              return game.MakeObserver(absl::nullopt, params);
            })
       // .def("make_observer",
       .def("__str__", &Game::ToString)
