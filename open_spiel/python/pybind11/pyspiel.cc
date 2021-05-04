@@ -155,9 +155,6 @@ PYBIND11_MODULE(pyspiel, m) {
       .def_readonly("public_info", &IIGObservationType::public_info)
       .def_readonly("perfect_recall", &IIGObservationType::perfect_recall)
       .def_readonly("private_info", &IIGObservationType::private_info);
-  
-  py::class_<absl::optional<open_spiel::IIGObservationType>>
-      opt_iig_obs_type(m, "absl_opt_iig_obs_type");
 
   py::class_<UniformProbabilitySampler> uniform_sampler(
       m, "UniformProbabilitySampler");
