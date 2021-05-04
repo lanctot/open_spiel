@@ -118,10 +118,6 @@ py::object GameParameterToPython(const GameParameter& gp) {
 PYBIND11_MODULE(pyspiel, m) {
   m.doc() = "Open Spiel";
   
-  // Needed for default param of Game::MakeObserver, otherwise we get a runtime
-  // error at load time on MacOS.
-  py::class_<absl::nullopt_t> null_opt(m, "absl_nullopt_t");
-
   py::enum_<open_spiel::GameParameter::Type>(m, "GameParameterType")
       .value("UNSET", open_spiel::GameParameter::Type::kUnset)
       .value("INT", open_spiel::GameParameter::Type::kInt)
@@ -416,9 +412,15 @@ PYBIND11_MODULE(pyspiel, m) {
       .def("max_chance_nodes_in_history", &Game::MaxChanceNodesInHistory)
       .def("max_move_number", &Game::MaxMoveNumber)
       .def("max_history_length", &Game::MaxHistoryLength)
-      .def("make_observer", &Game::MakeObserver,
-           py::arg("imperfect_information_observation_type") = absl::nullopt,
-           py::arg("params") = GameParameters())
+      .def("make_observer",
+           [](const Game& game, IIGObservationType iig_obs_type, const GameParameters& params) {
+              return game.MakeObserverForwarderWithObsType(iig_obs_type, params);
+           })
+      .def("make_observer",
+           [](const Game& game, const GameParameters& params) {
+              return game.MakeObserverForwarderWithoutObsType(params);
+           })
+      // .def("make_observer",
       .def("__str__", &Game::ToString)
       .def("__repr__", &Game::ToString)
       .def("__eq__",

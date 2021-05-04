@@ -174,6 +174,7 @@ std::shared_ptr<Observer> Game::MakeBuiltInObserver(
                                IIGObservationTypeToString(*iig_obs_type)));
 }
 
+
 std::shared_ptr<Observer> Game::MakeObserver(
     absl::optional<IIGObservationType> iig_obs_type,
     const ObservationParams& params) const {
@@ -188,6 +189,18 @@ std::shared_ptr<Observer> Game::MakeObserver(
     return MakeRegisteredObserver(iig_obs_type, params);
   }
 }
+
+std::shared_ptr<Observer> Game::MakeObserverForwarderWithObsType(
+    IIGObservationType iig_obs_type,
+    const ObservationParams& params) const {
+  return MakeObserver(iig_obs_type, params);
+}
+
+std::shared_ptr<Observer> Game::MakeObserverForwarderWithoutObsType(
+    const ObservationParams& params) const {
+  return MakeObserver(absl::nullopt, params);
+}
+
 
 DimensionedSpan TrackingVectorAllocator::Get(absl::string_view name,
                     const absl::InlinedVector<int, 4>& shape) {
