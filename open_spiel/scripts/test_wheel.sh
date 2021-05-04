@@ -30,7 +30,7 @@ PYBIN=${PYBIN:-"python"}
 PYBIN=`which $PYBIN`
 
 if [[ "$OS" = "Linux" ]]; then
-  ${PYBIN} -m pip install wheelhouse/open_spiel-0.3.1-cp38-cp38-manylinux2014_x86_64.whl
+  ${PYBIN} -m pip install wheelhouse/open_spiel-0.3.1-cp39-cp39-manylinux2014_x86_64.whl
 else
   ${PYBIN} -m pip install wheelhouse/open_spiel-0.3.1-cp39-cp39-macosx_10_9_x86_64.whl
 fi
